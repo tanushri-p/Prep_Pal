@@ -67,11 +67,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onInputSubmit }) => {
         {/* Hero Title with Logo */}
         <div className="space-y-6">
           <div className="flex items-center justify-center gap-4 mb-6">
-            <img 
-              src="/lovable-uploads/d5afa8c8-796e-40e9-849f-b4fdfc878c9a.png" 
-              alt="PrepPal Logo" 
-              className="w-20 h-20 md:w-24 md:h-24"
-            />
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl overflow-hidden shadow-lg bg-white p-2">
+              <img 
+                src="/lovable-uploads/d5afa8c8-796e-40e9-849f-b4fdfc878c9a.png" 
+                alt="PrepPal Logo" 
+                className="w-full h-full object-contain"
+              />
+            </div>
             <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-amber-600 via-orange-500 to-red-500 bg-clip-text text-transparent">
               PrepPal
             </h1>
