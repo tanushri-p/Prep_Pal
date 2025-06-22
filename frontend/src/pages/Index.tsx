@@ -45,6 +45,7 @@ export interface GroceryData {
 }
 
 const Index = () => {
+
   const [currentState, setCurrentState] = useState<AppState>('hero');
   const [userPreferences, setUserPreferences] = useState<UserPreferences>({
     dietary: [],
@@ -54,8 +55,30 @@ const Index = () => {
   const [mealPlan, setMealPlan] = useState<MealPlan | null>(null);
   const [groceryList, setGroceryList] = useState<GroceryData | null>(null);
 
-  const handleInputSubmit = (input: string, isVoice: boolean = false) => {
-    console.log('Input received:', input, 'Voice:', isVoice);
+  const handleInputSubmit = async (input: string, isVoice: boolean = false) => {
+  console.log('Input received:', input, 'Voice:', isVoice);
+
+  // Make POST request to your FastAPI backend
+  const response = await fetch('http://localhost:8000/generate-meal-plan-simple', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      prompt: input
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const data = await response.json();
+  console.log('API Response:', data);
+  
+    
+
+
     
     // Generate complete 7-day meal plan directly
     const mockMealPlan: MealPlan = {

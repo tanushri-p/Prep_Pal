@@ -26,7 +26,9 @@ app = FastAPI(
 # declare origin/s
 origins = [
     "http://localhost:3000",
-    "localhost:3000"
+    "localhost:3000",
+    "http://localhost:8080",  # Add this line
+    "localhost:8080"          # Add this line too
 ]
 
 app.add_middleware(
@@ -62,11 +64,13 @@ async def root():
     return {"message": "Meal Plan Generator API is running!"}
 
 @app.post("/generate-meal-plan-simple")
-async def generate_meal_plan_simple(prompt: str):
+async def generate_meal_plan_simple(request: MealPlanRequest):
     """
-    Simple endpoint that takes just a prompt string.
+    Endpoint that takes a MealPlanRequest with prompt in the request body.
     """
-    prompt += "Based on the user information, please generate a 7-day meal plan. Try to give meals that I can meal prep for with limited ingredients. also give me a corresponding grocery list with estimated prices based on average U.S. prices."
+    prompt = request.prompt
+    prompt += " Based on the user information, please generate a 7-day meal plan. Try to give meals that I can meal prep for with limited ingredients. also give me a corresponding grocery list with estimated prices based on average U.S. prices."
+    
     try:
         response = client.models.generate_content(
             model="gemini-2.5-flash",
@@ -84,17 +88,6 @@ async def generate_meal_plan_simple(prompt: str):
             status_code=500,
             detail=f"Error generating meal plan: {str(e)}"
         )
-
-@app.post("/receive_id")
-async def receive_id(res : Id):
-    callId = res.id #"cac66879-4256-45b1-bf1d-07e26863057a"
-    # print(callId)
-    url = "https://api.vapi.ai/call/" + callId
-    response = requests.get(
-        url,
-        headers={"Authorization": "Bearer " + os.getenv('PRIV_VAPI_KEY')},
-    )
-    return response.json()
     
 @app.get("/health")
 async def health_check():
