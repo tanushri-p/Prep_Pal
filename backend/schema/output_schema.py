@@ -1,27 +1,41 @@
-from pydantic import BaseModel, Field
-from typing import List, Dict, Optional
+from pydantic import BaseModel
+from typing import List, Literal
+from enum import Enum
 
-class Meals(BaseModel):
-    breakfast: str = Field(description="Description of breakfast meal")
-    lunch: str = Field(description="Description of lunch meal")
-    dinner: str = Field(description="Description of dinner meal")
+class Difficulty(str, Enum):
+    EASY = "Easy"
+    MEDIUM = "Medium"
+    HARD = "Hard"
 
-class DayPlan(BaseModel):
-    dayName: str = Field(description="A day of the week (ex: Monday)")
-    meals: Meals
+class PrepStyle(str, Enum):
+    BULK_PREP = "bulk_prep"
+    DAILY_LIGHT = "daily_light"
+    MINIMAL_CLEANUP = "minimal_cleanup"
 
+class Meal(BaseModel):
+    name: str
+    prepTime: str
+    difficulty: Difficulty
+    explanation: str
+    ingredients: List[str]
+    nutrition: List[str]
+
+class DayMeals(BaseModel):
+    day: str
+    breakfast: Meal
+    lunch: Meal
+    dinner: Meal
 
 class MealPlan(BaseModel):
-    weekly_plan: List[DayPlan] = Field(description="A list of daily meal plans for the week")
-
-class GroceryItem(BaseModel):
-    item: str = Field(description="Name of the grocery item (e.g., 'Chicken Breast')")
-    quantity: str = Field(description="Quantity needed (e.g., '500g', '2 units')")
-    estimated_price: float = Field(description="Estimated price of the item in USD")
-    category: Optional[str] = Field(None, description="Category of the item (e.g., 'Meat', 'Vegetables')")
+    week: str
+    prepStyle: PrepStyle
+    meals: List[DayMeals]
 
 class GroceryList(BaseModel):
-    items: List[GroceryItem] = Field(description="A list of grocery items with quantities and estimated prices")
+    produce: List[str]
+    protein: List[str]
+    pantry: List[str]
+    dairy: List[str]
 
 class MealPlanAndGroceryResponse(BaseModel):
     meal_plan: MealPlan
