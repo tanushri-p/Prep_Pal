@@ -65,7 +65,7 @@ const MealPlanDisplay: React.FC<MealPlanDisplayProps> = ({
           {isExpanded && (
             <div className="space-y-4 border-t pt-3 animate-fade-in">
               <div>
-                <h5 className="font-medium text-gray-800 mb-2">Why this meal?</h5>
+                <h5 className="font-medium text-gray-800 mb-2">How to make this meal: </h5>
                 <p className="text-sm text-gray-600">{meal.explanation}</p>
               </div>
 
@@ -103,9 +103,9 @@ const MealPlanDisplay: React.FC<MealPlanDisplayProps> = ({
         {/* Header */}
         <div className="text-center mb-8">
           <h2 className="text-4xl font-bold text-gray-800 mb-4">Your Weekly Meal Plan</h2>
-          <p className="text-lg text-gray-600 mb-6">
+          {/* <p className="text-lg text-gray-600 mb-6">
             Personalized for {mealPlan.prepStyle.replace('_', ' ')} style cooking
-          </p>
+          </p> */}
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
             <Button 
