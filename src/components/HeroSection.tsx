@@ -66,17 +66,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onInputSubmit }) => {
       <div className="max-w-4xl w-full text-center space-y-8">
         {/* Hero Title with Logo */}
         <div className="space-y-6">
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl overflow-hidden shadow-lg bg-white p-2">
-              <img 
-                src="/lovable-uploads/d5afa8c8-796e-40e9-849f-b4fdfc878c9a.png" 
-                alt="PrepPal Logo" 
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-amber-600 via-orange-500 to-red-500 bg-clip-text text-transparent">
-              PrepPal
-            </h1>
+          <div className="flex items-center justify-center mb-6">
+            <img 
+              src="/lovable-uploads/d5afa8c8-796e-40e9-849f-b4fdfc878c9a.png" 
+              alt="PrepPal Logo" 
+              className="w-24 h-24 md:w-32 md:h-32 object-contain"
+            />
           </div>
           <p className="text-xl md:text-2xl text-gray-700 max-w-2xl mx-auto leading-relaxed">
             Your AI-powered meal planning assistant. Tell us what you need, and we'll create a personalized weekly plan just for you.
