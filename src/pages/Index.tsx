@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import HeroSection from '@/components/HeroSection';
 import ConversationInterface from '@/components/ConversationInterface';
@@ -153,7 +152,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-orange-50 to-yellow-50">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
       {currentState === 'hero' && (
         <HeroSection onInputSubmit={handleInputSubmit} />
       )}

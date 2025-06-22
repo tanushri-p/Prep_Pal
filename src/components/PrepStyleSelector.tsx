@@ -18,7 +18,7 @@ const PrepStyleSelector: React.FC<PrepStyleSelectorProps> = ({ onSelect }) => {
       description: 'Perfect for busy schedules. Spend 2-3 hours on weekends preparing meals for the entire week.',
       timeEstimate: '2-3 hours weekend prep',
       icon: Calendar,
-      color: 'bg-green-500',
+      color: 'bg-amber-500',
       benefits: ['Save time during weekdays', 'Consistent portions', 'Cost-effective']
     },
     {
@@ -38,7 +38,7 @@ const PrepStyleSelector: React.FC<PrepStyleSelectorProps> = ({ onSelect }) => {
       description: 'Simple, delicious meals that require minimal dishes and cleanup time.',
       timeEstimate: '20-40 min total',
       icon: Utensils,
-      color: 'bg-blue-500',
+      color: 'bg-red-500',
       benefits: ['Easy cleanup', 'Less stress', 'Simple ingredients']
     }
   ];
@@ -59,7 +59,7 @@ const PrepStyleSelector: React.FC<PrepStyleSelectorProps> = ({ onSelect }) => {
             return (
               <Card 
                 key={style.id}
-                className="p-8 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 bg-white border-2 hover:border-gray-300"
+                className="p-8 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 bg-white border-2 hover:border-amber-300"
                 onClick={() => onSelect(style.id)}
               >
                 <div className="text-center space-y-6">
@@ -71,7 +71,7 @@ const PrepStyleSelector: React.FC<PrepStyleSelectorProps> = ({ onSelect }) => {
                     <h3 className="text-2xl font-bold text-gray-800 mb-2">{style.title}</h3>
                     <p className="text-lg text-gray-600 font-medium mb-3">{style.subtitle}</p>
                     <p className="text-gray-700 mb-4">{style.description}</p>
-                    <div className="bg-gray-50 rounded-lg p-3 mb-4">
+                    <div className="bg-amber-50 rounded-lg p-3 mb-4 border border-amber-200">
                       <p className="text-sm font-semibold text-gray-800">Time Commitment</p>
                       <p className="text-sm text-gray-600">{style.timeEstimate}</p>
                     </div>
@@ -82,7 +82,7 @@ const PrepStyleSelector: React.FC<PrepStyleSelectorProps> = ({ onSelect }) => {
                     <ul className="text-sm text-gray-600 space-y-1">
                       {style.benefits.map((benefit, index) => (
                         <li key={index} className="flex items-center">
-                          <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                          <span className="w-2 h-2 bg-amber-400 rounded-full mr-2"></span>
                           {benefit}
                         </li>
                       ))}
