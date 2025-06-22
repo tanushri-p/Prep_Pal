@@ -11,11 +11,12 @@ import uvicorn
 from schema.output_schema import MealPlanAndGroceryResponse, MealPlan, GroceryList
 from fastapi.middleware.cors import CORSMiddleware
 import requests
-#from vapi import Vapi
-
-#client = Vapi(token=os.getenv('PRIV_VAPI_KEY'), )
+from functools import lru_cache
+import hashlib
 
 load_dotenv()
+
+response_cache = {}
 
 app = FastAPI(
     title="Meal Plan Generator API",
@@ -71,17 +72,32 @@ async def generate_meal_plan_simple(request: MealPlanRequest):
     prompt = request.prompt
     prompt += " Based on the user information, please generate a 7-day meal plan. Try to give meals that I can meal prep for with limited ingredients. also give me a corresponding grocery list with estimated prices based on average U.S. prices."
     
+    # Create cache key from prompt
+    cache_key = hashlib.md5(prompt.encode()).hexdigest()
+
+    # Check cache first
+    if cache_key in response_cache:
+        return response_cache[cache_key]
+    
     try:
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-1.5-flash",
             contents=prompt,
             config={
                 "response_mime_type": "application/json",
                 "response_schema": MealPlanAndGroceryResponse.model_json_schema(),
+                "temperature": 0.7,  # Lower temperature for faster, more consistent responses
+                "max_output_tokens": 2048,  # Limit output size
+                "top_p": 0.8,  # Optimize sampling
             },
         )
         
-        return {"response": json.loads(response.text)}
+        result = {"response": json.loads(response.text)}
+        
+        # Cache the response
+        response_cache[cache_key] = result
+        
+        return result
         
     except Exception as e:
         raise HTTPException(
