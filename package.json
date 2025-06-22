@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "dev": "concurrently --names \"FRONTEND,BACKEND\" --prefix-colors \"blue,green\" \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && python -m uvicorn get_output:app --reload --port 8000"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
